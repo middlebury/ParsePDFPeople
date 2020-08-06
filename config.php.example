@@ -1,0 +1,19 @@
+<?php
+
+// Path to the PDF file to parse.
+$file = 'document.pdf';
+
+// LDAP connection information.
+$host = 'ad.middlebury.edu';
+$user = 'username@middlebury.edu';
+$pass = 'password';
+$tree = 'DC=middlebury,DC=edu';
+
+// The text to look for in the PDF.
+$pattern = '/Office\sId:\s([0-9]+)/';
+
+// The attribute name in the AD for ID numbers.
+$match = 'MiddleburyCollege6DigitIdNumber';
+
+// Attributes to return. This will generate a CSV with these columns.
+$attr = ['MiddleburyCollege6DigitIdNumber','sn', 'givenName', 'mail'];

@@ -1,0 +1,15 @@
+{
+    "name": "middlebury/parse-pdf-people",
+    "description": "Parses a PDF file for an identifier and generates a CSV with people data.",
+    "type": "library",
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "Ian McBride",
+            "email": "imcbride@middlebury.edu"
+        }
+    ],
+    "require": {
+        "smalot/pdfparser": "*"
+    }
+}
