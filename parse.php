@@ -29,9 +29,15 @@ foreach ($pages as $page) {
   }
 }
 
-// Normalize ID numbers at six digits.
-foreach ($ids as &$id) {
-  $id = substr($id, -6);
+if ($match == "MiddleburyCollege6DigitIdNumber") {
+  // Normalize ID numbers at six digits.
+  foreach ($ids as &$id) {
+    // Handle ID numbers less than six digits.
+    $id = str_pad($id, 6, "0", STR_PAD_LEFT);
+
+    // Handle ID numbers more than six digits.
+    $id = substr($id, -6);
+  }
 }
 
 $conn = ldap_connect($host) or die("Could not connect to LDAP server.");
@@ -43,11 +49,10 @@ if ($conn) {
   $bind = ldap_bind($conn, $user, $pass) or die ("Error trying to bind: ".ldap_error($conn));
   if ($bind) {
 
-    foreach ($ids as $id) {
-      $dn = $tree;
-      $filter = '(' . $match . '=' . $id . ')';
+    foreach ($ids as $number) {
+      $filter = '(' . $match . '=' . $number . ')';
 
-      $data = ldap_search($conn, $dn, $filter, $attr);
+      $data = ldap_search($conn, $tree, $filter, $attr);
 
       $info = ldap_get_entries($conn, $data);
 
